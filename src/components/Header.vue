@@ -20,19 +20,22 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="stylus">
-h3
-  margin 40px 0 0
-
-ul
-  list-style-type none
-  padding 0
-
-li
-  display inline-block
-  margin 0 10px
-
-a
-  color #42b983
+<style lang="stylus" scoped>
+header
+  position fixed
+  top 0
+  width 100%
+  text-align center
+  padding 10px
+  h1
+    width fit-content
+    margin 0 auto
+    font-size 1.4rem
+  .btns
+    position absolute
+    top 10px
+    right 30px
+    cursor pointer
+    img
+      width 100%
 </style>
