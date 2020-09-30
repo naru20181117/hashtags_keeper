@@ -2,9 +2,8 @@
   <li class="item">
     <div class="user-box">
       <div class="avator" :style="'background-image: url('+user.photoURL+')'">
-
       </div>
-        <p class="user-name">{{ user.name}} </p>
+      <p class="user-name">{{ user.name }} </p>
     </div>
     <div class="content" v-html="hashtag.content">
     </div>
@@ -15,7 +14,7 @@
 import { db } from '../main'
 
 export default {
-  props: ['id', 'uid'],
+  props: ['id','uid'],
   data () {
     return {
       hashtag: {},
