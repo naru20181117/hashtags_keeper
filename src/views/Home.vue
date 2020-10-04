@@ -12,14 +12,13 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import Item from '@/components/Item.vue'
 
 import { db } from '../main'
 import Vue2Filters from 'vue2-filters'
 
 export default {
-  name: 'Home',
+  name: 'home',
   data () {
     return {
       hashtags: []
@@ -39,7 +38,6 @@ export default {
 
 // <style lang="stylus" scoped>
 
-// /* ここから追加 */
 // .item
 //   list-style none
 //   border-top 1px solid #eee
@@ -68,6 +66,5 @@ export default {
 //       width 50px
 //   .content
 //     padding 10px
-// /* ここまで追加 */
   
 // </style>
