@@ -5,14 +5,19 @@
       </div>
       <p class="user-name">{{ user.name }} </p>
     </div>
-    <div class="content" v-html="hashtag.content">
+    <div v-if="editing" class="editor">
+      <textarea v-model="hashtag.content" placeholder="edit hashtag" @keypress.enter="updateHashtag">
+      </textarea>
+      <p class="message">Press Enter to Change</p>
     </div>
+    <div v-else class="content" v-html="hashtag.content"></div>
     <button v-if="currentUser && currentUser.uid == user.id" @click="showBtns = !showBtns">
       <fa icon="ellipsis-v" />
     </button>
     <div v-if="showBtns" class="controls">
+      <li @click="editing = !editing">Edit</li>
       <li @click="deleteHashtag" style="color:red">
-        delete
+        Delete
       </li>
     </div>
   </li>
@@ -28,6 +33,15 @@ export default {
       if (window.confirm('Are you sure you want to delete This?')) {
         db.collection('hashtags').doc(this.$props.id).delete()
       }
+    },
+    updateHashtag() {
+      const date = new Date()
+      db.collection('hashtags').doc(this.$props.id).set({
+        'content': this.hashtag.content,
+        'date':date
+      },{merge:true})
+      .then(() =>this.editing = false
+      )
     }
   },
   props: ['id','uid'],
@@ -36,7 +50,8 @@ export default {
       hashtag: {},
       user: {},
       currentUser: {},
-      showBtns: false
+      showBtns: false,
+      editing: false
     }
   },
   created () {
