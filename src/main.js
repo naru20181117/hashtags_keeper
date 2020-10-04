@@ -6,14 +6,16 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faUser,
   faSignOutAlt,
-  faEllipsisV
+  faEllipsisV,
+  faPaperclip
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(
   faUser,
   faSignOutAlt,
-  faEllipsisV
+  faEllipsisV,
+  faPaperclip
 )
 
 import { firestorePlugin } from 'vuefire'

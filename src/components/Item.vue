@@ -11,7 +11,15 @@
       <p class="message">Press Enter to Change</p>
     </div>
     <div v-else class="content" v-html="hashtag.content"></div>
-    <button v-if="currentUser && currentUser.uid == user.id" @click="showBtns = !showBtns">
+    <button type="button"
+      v-clipboard:copy="hashtag.content"
+      v-clipboard:success="onCopy"
+      v-clipboard:error="onError"
+      class="clipboard">
+      <fa icon="paperclip" class="paperclip"/>
+      Copy
+    </button>
+    <button v-if="currentUser && currentUser.uid == user.id" @click="showBtns = !showBtns" class="edit_btn">
       <fa icon="ellipsis-v" />
     </button>
     <div v-if="showBtns" class="controls">
@@ -42,6 +50,12 @@ export default {
       },{merge:true})
       .then(() =>this.editing = false
       )
+    },
+    onCopy: function (e) {
+      alert('You just copied: \n' + e.text)
+    },
+    onError: function (e) {
+      alert('Failed to copy texts')
     }
   },
   props: ['id','uid'],
@@ -51,7 +65,8 @@ export default {
       user: {},
       currentUser: {},
       showBtns: false,
-      editing: false
+      editing: false,
+      hashtagContent: null
     }
   },
   created () {
@@ -120,16 +135,39 @@ export default {
       line-height .7rem
       width 50px
   .content
-    padding 10px
-  button
+    padding 10px 40px 10px 10px
+  .edit_btn
     position absolute
     top 5px
-    right 0
+    right 12px
     background transparent
     color #555
     font-size .9rem
     opacity 0
     transition .2s
+    border:1px solid #EEE
+    box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px
+    -webkit-box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px
+    -moz-box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px
+  .clipboard
+    position absolute
+    top 50px
+    right 8px
+    width 3rem
+    background transparent
+    color #555
+    font-size .9rem
+    opacity 0
+    transition .2s
+    -webkit-transition: all 0.5s ease
+    -webkit-box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px
+    -moz-box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px all 0.2s ease
+    &:hover
+      -webkit-transform: scale( 1.3 )
+      -moz-transform: scale( 1.3 )
+  .paperclip
+    position relative
+    right 0px
   .controls
     background white
     position absolute
