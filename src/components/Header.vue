@@ -7,7 +7,7 @@
       <router-link :to="'/user/'+currentUser.uid">
         <button :style="'background-image: url('+currentUser.photoURL+')'"></button>
       </router-link>
-      <button @click="signIn">
+      <button @click="signOut">
         <fa icon="sign-out-alt" />
       </button>
     </div>
@@ -41,16 +41,16 @@ export default {
       auth.signInWithPopup(provider)
       .then((result) => {
         this.$router.push('/user/'+result.user.uid)
-        alert('Hello, '+result.user.displeyName+'!')
+        alert('Hello, '+result.user.displayName+'!')
         this.createUser(result.user)
       })
     },
-    createUser(user) {
-      db.collection('users').doc(user.id).set({
-        'name': user.displeyName,
+    createUser (user) {
+      db.collection('users').doc(user.uid).set({
+        'name': user.displayName,
         'photoURL': user.photoURL,
-        'email': user.email
-      }, { merge:true })
+        'email':user.email
+      }, { merge: true })
     },
     signOut () {
       if (window.confirm('Are You Sure to Sign Out?')) {

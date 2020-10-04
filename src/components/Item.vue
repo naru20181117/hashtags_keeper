@@ -1,7 +1,7 @@
 <template>
   <li class="item">
     <div class="user-box">
-      <div class="avator" :style="'background-image: url('+user.photoURL+')'">
+      <div class="avatar" :style="'background-image: url('+user.photoURL+')'">
       </div>
       <p class="user-name">{{ user.name }} </p>
     </div>
@@ -12,6 +12,7 @@
 
 <script>
 import { db } from '../main'
+import Vue2Filters from 'vue2-filters'
 
 export default {
   props: ['id','uid'],
@@ -26,7 +27,8 @@ export default {
       hashtag: db.collection('hashtags').doc(this.$props.id),
       user: db.collection('users').doc(this.$props.uid)
     }
-  }
+  },
+  mixins: [Vue2Filters.mixin]
 }
 </script>
 
@@ -39,6 +41,30 @@ export default {
   flex-wrap no-wrap
   justify-content flex-start
   position relative
+  .editor
+    position relative
+    width 100%
+    textarea
+      background transparent
+      resize none
+      height 80px
+      width 96%
+      border none
+      padding 10px 2%
+      font-size .9rem
+      font-weight lighter
+      &:focus
+        outline none
+    .message
+      opacity 0
+      position absolute
+      bottom 5px
+      right 10px
+      transition .2s
+      font-size .8rem
+    &:hover
+      .message
+        opacity 1
   &:first-child
     border none
   &:hover
